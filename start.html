@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Sociopath</title>
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/style.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="lib/jquery.storageapi.min.js"></script>
+    <script type="text/javascript" src="lib/knockout-3.2.0.js"></script>
+    <script type="text/javascript" src="lib/moment.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>Sociopath <br/><small>No friends. No likes. No comments.</small></h1>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10">
+                <div data-bind="foreach: posts">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <span data-bind="text: date"></span>
+                            <button data-bind="click: $parent.removePost" type="button" class="close">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                        </div>
+                        <div data-bind="text: body" class="panel-body"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <ul class="nav">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#createPost">Create new</a>
+                    </li>
+                    <li>
+                        <a href="#">Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="createPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div data-bind="with: newPost" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">New post</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <textarea data-bind="value: body" rows="5" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button data-bind="click: $parent.addPost" type="button" class="btn btn-primary">Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="sociopath.js"></script>
+</body>
+</html>
