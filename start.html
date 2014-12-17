@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Sociopath</title>
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="css/style.css" rel="stylesheet" media="screen">
     <script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="lib/jquery.storageapi.min.js"></script>
@@ -14,13 +13,22 @@
 <body>
     <div class="container">
         <div class="page-header">
-            <h1>Sociopath <br/><small>No friends. No likes. No comments.</small></h1>
+            <h1>Sociopath <br/><small>No likes. No comments. No friends.</small></h1>
+            <div data-bind="with: profile" class="row">
+                <div class="col-md-10">
+                    <strong data-bind="text: blogName"></strong>
+                </div>
+                <div class="col-md-2">
+                    <span>Hello,</span>
+                    <span data-bind="text: nickname"></span>
+                </div>
+            </div>
         </div>
 
         <div class="row">
             <div class="col-md-10">
                 <div data-bind="foreach: posts">
-                    <div class="panel panel-success">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <span data-bind="text: date"></span>
                             <button data-bind="click: $parent.removePost" type="button" class="close">
@@ -34,24 +42,28 @@
             </div>
 
             <div class="col-md-2">
-                <ul class="nav">
-                    <li>
-                        <a href="#" data-toggle="modal" data-target="#createPost">Create new</a>
-                    </li>
-                    <li>
-                        <a href="#">Profile</a>
-                    </li>
-                </ul>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <button data-bind="click: openCreate" class="btn btn-primary btn-block">Create new</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <button data-bind="click: openProfile" class="btn btn-default btn-block">Profile</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="createPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createPost" tabindex="-1" role="dialog" aria-labelledby="createPostLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div data-bind="with: newPost" class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">New post</h4>
+                    <h4 class="modal-title" id="createPostLabel">New post</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal">
@@ -64,6 +76,41 @@
                 </div>
                 <div class="modal-footer">
                     <button data-bind="click: $parent.addPost" type="button" class="btn btn-primary">Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="profileLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div data-bind="with: profileChange" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="profileLabel">Profile</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label for="nickname">Nickname</label>
+                                <input data-bind="value: nickname" id="nickname" class="form-control" type="text"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label for="blogName">Blog name</label>
+                                <input data-bind="value: blogName" id="blogName" class="form-control" type="text"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <button data-bind="click: $parent.deleteBlog" class="btn btn-danger" type="button">Delete blog</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button data-bind="click: $parent.saveProfile" type="button" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
